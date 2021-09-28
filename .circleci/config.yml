@@ -3,15 +3,20 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.7
+  
+stages: test
+
+jobs:
+   postman_tests:
+       stage: test
+       image: 
+           name: postman/newman_alpine33
+           entrypoint: [""]
+      script:
+           - newman --version
 
 workflows:
   sample:
     jobs:
-      - node/test:
-          version: '16.10'
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
-          #
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
+      - postman_tests
+       
