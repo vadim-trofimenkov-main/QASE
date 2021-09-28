@@ -1,0 +1,1280 @@
+{
+	"info": {
+		"_postman_id": "349d56aa-f480-4351-b189-eade5ad284b5",
+		"name": "QASE - Project module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive tests",
+			"item": [
+				{
+					"name": "Create a new Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"TEST\",\r\n    \"description\": \"A new project created through Postman\",\r\n    \"access\": \"all\",\r\n    \"group\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/project",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specified Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "{{Content-type}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/project/TEST",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"project",
+								"TEST"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "{{Content-type}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/project",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"project"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects with correct limit&offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "{{Content-type}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/project?limit=2&offset=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"project"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Spicified Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/project/TEST",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"project",
+								"TEST"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative tests",
+			"item": [
+				{
+					"name": "Get project(s) with incorrect parameters",
+					"item": [
+						{
+							"name": "Get Spicified Project that doesn't exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Project is not found.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Project is not found.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/project/QWERTY",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project",
+										"QWERTY"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with incorrect limit==0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=0&offset=0",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "0"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with limit and offset as doubles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=5.5&offset=2.5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "5.5"
+										},
+										{
+											"key": "offset",
+											"value": "2.5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with limit and offset as nulls",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=null&offset=null",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "null"
+										},
+										{
+											"key": "offset",
+											"value": "null"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with limit and offset as empty parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=&offset=",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": ""
+										},
+										{
+											"key": "offset",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with limit and offset with special symbols Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=!@%23$$&offset=!@%23$$",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "!@#$$"
+										},
+										{
+											"key": "offset",
+											"value": "!@#$$"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with incorrect limit&offset as strings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=test&offset=test",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "test"
+										},
+										{
+											"key": "offset",
+											"value": "test"
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Projects with incorrect limit&offset negative values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "{{Content-type}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/project?limit=-1&offset=-1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "-1"
+										},
+										{
+											"key": "offset",
+											"value": "-1"
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edit Project",
+					"item": [
+						{
+							"name": "Edit Project through patch request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"TEST\",\r\n    \"description\": \"A new project Updated created through Postman\",\r\n    \"access\": \"all\",\r\n    \"group\": null\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/project/TEST",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project",
+										"TEST"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Project through put request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"TEST\",\r\n    \"description\": \"A new project Updated created through Postman\",\r\n    \"access\": \"all\",\r\n    \"group\": null\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/project/TEST",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project",
+										"TEST"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Project through post request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"TEST\",\r\n    \"description\": \"A new project Updated created through Postman\",\r\n    \"access\": \"all\",\r\n    \"group\": null\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/project/TEST",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project",
+										"TEST"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete project(s) with incorrect parameters",
+					"item": [
+						{
+							"name": "Delete All Projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Spicified Project that doesn't exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Project is not found.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Project is not found.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/QWERTY",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"QWERTY"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create new project(s) with incorrect parameters",
+					"item": [
+						{
+							"name": "Create Project with duplicate Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Project with the same code already exists.'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const codeErrors = jsonData.errorFields.find(m => m.field === \"code\");\r",
+											"    pm.expect(codeErrors.error).to.include(\"Project with the same code already exists.\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"DEMO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project with blank required fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Title is required'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"title\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Title is required\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Project code is required'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"code\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Project code is required\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"A new project created through Postman\",\r\n    \"access\": \"all\",\r\n    \"group\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project with 1 symbol Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Project code can contain only 2..10 latin alphabet symbols.'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"code\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Project code can contain only 2..10 latin alphabet symbols.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Project with 1 symbol Code\",\r\n    \"code\": \"T\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project with 11 symbol Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Project code can contain only 2..10 latin alphabet symbols.'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"code\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Project code can contain only 2..10 latin alphabet symbols.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Project with 7 symbol Code\",\r\n    \"code\": \"Testingingq\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project with digit symbol Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Project code can contain only 2..10 latin alphabet symbols.'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"code\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Project code can contain only 2..10 latin alphabet symbols.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Project with 7 symbol Code\",\r\n    \"code\": \"Test1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project with special symbol Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Project code can contain only 2..10 latin alphabet symbols.'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"code\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Project code can contain only 2..10 latin alphabet symbols.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Project with 7 symbol Code\",\r\n    \"code\": \"Test/\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Project with wrong access type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"TESTING\",\r\n    \"description\": \"Create a new Project with wrong access type\",\r\n    \"access\": \"test\",\r\n    \"group\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Project with group == null, if access == group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Data is invalid.'\", function () {\r",
+											"  pm.expect(pm.response.json().errorMessage).to.eql(\"Data is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Error Message matches 'Group hash field is required for group access.'\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const errorFields = jsonData.errorFields.find(m => m.field === \"group\");\r",
+											"    pm.expect(errorFields.error).to.include(\"Group hash field is required for group access.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Project\",\r\n    \"code\": \"TESTING\",\r\n    \"description\": \"Create a new Project with group == null, if access == group\",\r\n    \"access\": \"group\",\r\n    \"group\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/project",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"project"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "8dec0f6501b58252242176097d962d0b08efbbb3"
+		},
+		{
+			"key": "Content-type",
+			"value": "application/json"
+		},
+		{
+			"key": "url",
+			"value": "https://api.qase.io/v1"
+		}
+	]
+}
