@@ -1,22 +1,15 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-
 orbs:
-  node: circleci/node@4.7
-  
-stages: test
-
+  newman: postman/newman@0.0.2
 jobs:
-   postman_tests:
-       stage: test
-       image: 
-           name: postman/newman_alpine33
-           entrypoint: [""]
-      script:
-           - newman --version
+  newman-collection-run:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - newman/newman-run:
+          collection: qase.project.module.postman_collection.json
 
 workflows:
   sample:
     jobs:
-      - postman_tests
-       
+      - newman-collection-run
